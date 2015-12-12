@@ -19,8 +19,8 @@ from django.contrib import admin
 import lottery.views
 
 urlpatterns = [
-    url(r'^$', lottery.views.AvailableLotteries.as_view()),
-    url(r'^lottery/(\d+)/play$', lottery.views.play_lottery, name="play_lottery"),
+    url(r'^$', lottery.views.AvailableLotteries.as_view(), name="main_page"),
+    url(r'^lottery/(\d+)/play$', lottery.views.PlayLottery.as_view(), name="play_lottery"),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^admin/', admin.site.urls),
 ]
