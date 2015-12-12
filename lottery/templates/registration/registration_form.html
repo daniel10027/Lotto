@@ -1,0 +1,8 @@
+{% extends "layout/base.html" %}
+{% block content %}
+<form method="POST" action="{% url 'registration_register' %}">
+     {% csrf_token %}
+    {{ form }}
+    <input class="btn btn-primary" type="submit" value="Register">
+</form>
+{% endblock content %}

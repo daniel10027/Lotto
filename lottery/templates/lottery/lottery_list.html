@@ -1,0 +1,21 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Open Lotteries{% endblock %}
+
+{% block content %}
+{% for lottery in lotteries %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>
+            {{ lottery.name }}
+            <a class="btn btn-primary btn-lg" href="#" role="button">Play</a>
+        </h2>
+        <p>
+        {{ lottery.description }}
+        </p>
+    </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock content %}
