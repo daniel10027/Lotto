@@ -8,7 +8,7 @@
     <div class="col-md-12">
         <h2>
             {{ lottery.name }}
-            <a class="btn btn-primary btn-lg" href="#" role="button">Play</a>
+            <a class="btn btn-primary btn-lg" href="{%url 'play_lottery' lottery.id %}" role="button">Play</a>
         </h2>
         <p>
         {{ lottery.description }}
