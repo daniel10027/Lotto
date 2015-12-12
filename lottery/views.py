@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
@@ -33,5 +34,6 @@ class PlayLottery(LoginRequiredMixin, FormView):
 
     def dispatch(self, request, lottery_id, *args, **kwargs):
         self.lottery = get_object_or_404(Lottery.open_lotteries.all(), id=lottery_id)
-
+        if request.user.lotteryticket_set.filter(lottery=self.lottery).exists():
+            return redirect(self.success_url)
         return super(PlayLottery, self).dispatch(request, *args, **kwargs)
