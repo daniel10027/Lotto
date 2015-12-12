@@ -1,8 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
-from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render
 
 from lottery.models import Lottery
 from lottery.models import LotteryTicket
@@ -17,7 +18,7 @@ class AvailableLotteries(ListView):
         return Lottery.open_lotteries.all()
 
 
-class PlayLottery(FormView):
+class PlayLottery(LoginRequiredMixin, FormView):
     template_name="lottery/play_lottery.html"
     form_class = LotteryTicketForm
     success_url = reverse_lazy("main_page")

@@ -121,5 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGIN_URL = "/accounts/register"
+
 LOTTERY_TICKET_NUMBERS = 6
 LOTTERY_NUMBER_RANGE = range(1, 43)  # numbers from 1 to 42
