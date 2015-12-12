@@ -23,6 +23,14 @@ def play_lottery(request, lottery_id):
             context={"form": LotteryTicketForm()},
         )
 
+    lform = LotteryTicketForm(request.POST)
+    if not lform.is_valid():
+        return render(
+            request,
+            template_name="lottery/play_lottery.html",
+            context={"form": lform},
+        )
+
     return render(
         request,
         template_name="lottery/play_lottery.html",
