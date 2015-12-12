@@ -30,6 +30,7 @@ class PlayLottery(LoginRequiredMixin, FormView):
             player=self.request.user,
             ticket=serialize_ticket(form.cleaned_data["numbers"]),
         )
+        ticket.save()
         return super(PlayLottery, self).form_valid(form)
 
     def dispatch(self, request, lottery_id, *args, **kwargs):
