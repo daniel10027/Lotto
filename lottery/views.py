@@ -1,8 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
 
@@ -19,7 +20,7 @@ class AvailableLotteries(ListView):
         return Lottery.open_lotteries.all()
 
 
-class PlayLottery(LoginRequiredMixin, FormView):
+class PlayLottery(FormView):
     template_name="lottery/play_lottery.html"
     form_class = LotteryTicketForm
     success_url = reverse_lazy("main_page")
@@ -33,6 +34,7 @@ class PlayLottery(LoginRequiredMixin, FormView):
         ticket.save()
         return super(PlayLottery, self).form_valid(form)
 
+    @method_decorator(login_required)
     def dispatch(self, request, lottery_id, *args, **kwargs):
         self.lottery = get_object_or_404(Lottery.open_lotteries.all(), id=lottery_id)
         if request.user.lotteryticket_set.filter(lottery=self.lottery).exists():
