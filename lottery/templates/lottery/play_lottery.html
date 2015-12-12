@@ -1,0 +1,11 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Open Lotteries{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input class="btn btn-primary" type="submit" value="Register">
+</form>
+{% endblock content %}

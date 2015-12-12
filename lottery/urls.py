@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from lottery.views import AvailableLotteries
+import lottery.views
 
 urlpatterns = [
-    url(r'^$', AvailableLotteries.as_view()),
+    url(r'^$', lottery.views.AvailableLotteries.as_view()),
+    url(r'^lottery/(\d+)/play$', lottery.views.play_lottery, name="play_lottery"),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^admin/', admin.site.urls),
 ]
