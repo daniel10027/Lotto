@@ -28,3 +28,6 @@ class LotteryTicket(models.Model):
         help_text="Serialization of the ticket/selection of numbers made by the player",
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = (("lottery", "player"),)
