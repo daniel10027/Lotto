@@ -1,4 +1,6 @@
 from django.db import models
+from lottery.managers import OpenLotteryManager
+
 
 class Lottery(models.Model):
     name = models.CharField(max_length=100)
@@ -14,6 +16,8 @@ class Lottery(models.Model):
         help_text="Serialization of the winner ticket/selection of numbers",
         blank=True,
     )
+
+    open_lotteries = OpenLotteryManager()
 
 
 class LotteryTicket(models.Model):
