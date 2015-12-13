@@ -1,5 +1,8 @@
 from django.db import models
 from lottery.managers import OpenLotteryManager
+from django.conf import settings
+from random import sample
+from .utils import serialize_ticket
 
 
 class Lottery(models.Model):
@@ -20,6 +23,15 @@ class Lottery(models.Model):
     def winner_chosen(self):
         return self.winner_ticket
 
+    def select_winner(self):
+        winner_ticket = sample(
+            settings.LOTTERY_NUMBER_RANGE,
+            settings.LOTTERY_TICKET_NUMBERS,
+        )
+        self.winner_ticket = serialize_ticket(winner_ticket)
+        self.save()
+
+    objects = models.Manager()
     open_lotteries = OpenLotteryManager()
 
 
