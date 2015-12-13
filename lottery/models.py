@@ -34,6 +34,9 @@ class Lottery(models.Model):
     objects = models.Manager()
     open_lotteries = OpenLotteryManager()
 
+    def __str__(self):
+        return self.name
+
 
 class LotteryTicket(models.Model):
     lottery = models.ForeignKey("lottery.Lottery")
@@ -46,6 +49,9 @@ class LotteryTicket(models.Model):
 
     def is_winner(self):
         return self.lottery.winner_ticket and self.ticket == self.lottery.winner_ticket
+
+    def __str__(self):
+        return "{} - {}".format(self.player.username, self.lottery)
 
     class Meta:
         unique_together = (("lottery", "player"),)
