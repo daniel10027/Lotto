@@ -20,7 +20,7 @@ import lottery.views
 
 urlpatterns = [
     url(r'^$', lottery.views.main_page, name="main_page"),
-    url(r'^manage_lotteries$', lottery.views.lottery_list),
+    url(r'^manage_lotteries$', lottery.views.manage_lotteries, name="manage_lotteries"),
     url(r'^lottery/(\d+)/play$', lottery.views.PlayLottery.as_view(), name="play_lottery"),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^admin/', admin.site.urls),

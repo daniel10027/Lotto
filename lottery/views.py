@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView
 from django.views.generic.edit import FormView
+from django.contrib.admin.views.decorators import staff_member_required
 
 from lottery.models import Lottery
 from lottery.models import LotteryTicket
@@ -24,7 +24,8 @@ def main_page(request):
     return render(request, template_name="lottery/lottery_list.html", context=context)
 
 
-def lottery_list(request):
+@staff_member_required
+def manage_lotteries(request):
     return render(
         request,
         template_name="lottery/all_lotteries.html",
