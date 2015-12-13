@@ -1,6 +1,12 @@
 {% extends "layout/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+<h1>
+    Registration
+</h1>
+<p>
+Already registered? <a href="{% url 'django.contrib.auth.views.login' %}">log in</a> then.
+</p>
 <form method="POST" action="{% url 'registration_register' %}">
      {% csrf_token %}
     {{ form|crispy }}
