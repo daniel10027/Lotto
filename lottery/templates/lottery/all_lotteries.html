@@ -25,7 +25,7 @@
                 {% if lottery.winner_ticket %}
                     {{ lottery.winner_ticket }}
                 {% else %}
-                    <form method="POST">
+                    <form method="POST" action="{% url 'select_winner_ticket' lottery.id %}">
                         {% csrf_token %}
                         <input class="btn btn-primary" type="submit" value="Generate winner ticket">
                     </form>

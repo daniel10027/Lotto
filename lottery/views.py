@@ -1,11 +1,13 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView
-from django.contrib.admin.views.decorators import staff_member_required
 
 from lottery.models import Lottery
 from lottery.models import LotteryTicket
@@ -31,6 +33,20 @@ def manage_lotteries(request):
         template_name="lottery/all_lotteries.html",
         context={'lotteries': Lottery.objects.all()},
     )
+
+
+@staff_member_required
+def select_winner_ticket(request, lottery_id):
+    if request.method != "POST":
+        return HttpResponseForbidden()
+
+    lottery = get_object_or_404(Lottery.open_lotteries.all(), id=lottery_id)
+    if lottery.winner_chosen():
+        return HttpResponseForbidden()  # re-generating tickets is forbidden
+
+    lottery.select_winner()
+
+    return redirect(reverse(manage_lotteries))
 
 
 class PlayLottery(FormView):
