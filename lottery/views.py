@@ -54,6 +54,11 @@ class PlayLottery(FormView):
     form_class = LotteryTicketForm
     success_url = reverse_lazy("main_page")
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(PlayLottery, self).get_context_data(*args, **kwargs)
+        context["lottery"] = self.lottery
+        return context
+
     def form_valid(self, form):
         ticket = LotteryTicket(
             lottery=self.lottery,

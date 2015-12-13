@@ -1,11 +1,56 @@
 {% extends "layout/base.html" %}
-
+{% load crispy_forms_tags %}
 {% block title %}{{lottery.name}}{% endblock %}
 
 {% block content %}
+<h1>
+{{ lottery.name }}
+</h1>
+<h3>
+{{ lottery.description }}
+</h3>
+
+<h2>
+    Choose your numbers!
+</h2>
 <form method="POST">
     {% csrf_token %}
-    {{ form }}
-    <input class="btn btn-primary" type="submit" value="Register">
+    {{ form|crispy }}
+
+    <input class="btn btn-primary" type="submit" value="Get your ticket!">
 </form>
+
 {% endblock content %}
+
+{% block javascript %}
+<script>
+$(function() {
+    $('#div_id_numbers .checkbox').each(function(index) {
+      var checkbox = $(this);
+      var input = $(checkbox).find('input');
+      $(checkbox).find('label').empty();
+      $(checkbox).append(input);
+      $(input).bootstrapToggle({
+        on: $(input).val(),
+        onstyle: 'success',
+        off: $(input).val()
+      });
+    });
+});
+</script>
+{% endblock javascript %}
+{% block css %}
+<style>
+#div_id_numbers .checkbox {
+    display: inline;
+}
+
+#div_id_numbers .checkbox .toggle {
+    margin: 10px 5px;
+}
+
+#div_id_numbers .checkbox label {
+    padding: 0;
+}
+</style>
+{% endblock css%}

@@ -3,7 +3,7 @@ from django.conf import settings
 
 class LotteryTicketForm(forms.Form):
     numbers = forms.MultipleChoiceField(
-        label="number selection",
+        label="",
         choices=[(str(n), str(n)) for n in settings.LOTTERY_NUMBER_RANGE],
         widget=forms.CheckboxSelectMultiple,
     )
