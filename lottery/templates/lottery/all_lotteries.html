@@ -1,0 +1,47 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Lotteries{% endblock %}
+
+{% block content %}
+<h1>
+    Lotteries
+</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th> Name </th>
+            <th> Opening date </th>
+            <th> Closing date </th>
+            <th> Winner Ticket </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lottery in lotteries %}
+        <tr>
+            <td> {{ lottery.name }} </td>
+            <td> {{ lottery.opening_datetime }} </td>
+            <td> {{ lottery.closing_datetime }} </td>
+            <td>
+                {% if lottery.winner_ticket %}
+                    {{ lottery.winner_ticket }}
+                {% else %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input class="btn btn-primary" type="submit" value="Generate winner ticket">
+                    </form>
+                {% endif %}
+            </td>
+    
+        </tr>
+        {% empty %}
+
+        <tr>
+            <td> -- </td>
+            <td> -- </td>
+            <td> -- </td>
+            <td> -- </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

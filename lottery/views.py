@@ -24,6 +24,14 @@ def main_page(request):
     return render(request, template_name="lottery/lottery_list.html", context=context)
 
 
+def lottery_list(request):
+    return render(
+        request,
+        template_name="lottery/all_lotteries.html",
+        context={'lotteries': Lottery.objects.all()},
+    )
+
+
 class PlayLottery(FormView):
     template_name="lottery/play_lottery.html"
     form_class = LotteryTicketForm
