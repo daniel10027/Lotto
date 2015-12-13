@@ -6,6 +6,15 @@ from .utils import serialize_ticket
 
 
 class Lottery(models.Model):
+    """
+    Represents a lottery.
+
+    A lottery can be played as long as:
+
+      * its opening datetime has passed.
+      * its closing datetime has not passed.
+      * it has no winner ticket selected.
+    """
     name = models.CharField(max_length=100)
     description = models.TextField()
     opening_datetime = models.DateTimeField(
@@ -39,6 +48,12 @@ class Lottery(models.Model):
 
 
 class LotteryTicket(models.Model):
+    """
+    Lottery Ticket
+
+    A person can only have one ticket per lottery.
+    """
+
     lottery = models.ForeignKey("lottery.Lottery")
     player = models.ForeignKey("auth.User")
     ticket = models.CharField(
