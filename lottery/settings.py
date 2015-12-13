@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lottery',
+    'crispy_forms',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -126,3 +127,5 @@ LOGIN_REDIRECT_URL = "/"
 
 LOTTERY_TICKET_NUMBERS = 6
 LOTTERY_NUMBER_RANGE = range(1, 43)  # numbers from 1 to 42
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
