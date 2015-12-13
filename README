@@ -1,0 +1,20 @@
+How to run the application:
+
+    * create a Python 3 virtual environment and activate it.
+
+    * install the requirements of the project:
+      
+          pip install -r requirements.txt
+
+    * run the migrations to create the schema
+
+          python manage.py migrate
+
+    * create a superuser (this will be the user capable of creating lotteries,
+      generating tickets for them, etc.)
+
+          python manage.py createsuperuser
+
+    * for a test run, use the following command:
+
+          python manage.py runserver
