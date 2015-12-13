@@ -7,4 +7,5 @@ class OpenLotteryManager(models.Manager):
         return super(OpenLotteryManager, self).get_queryset().filter(
             opening_datetime__lte=now_ts,
             closing_datetime__gte=now_ts,
+            winner_ticket="",
         )
