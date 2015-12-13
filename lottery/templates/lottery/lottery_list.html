@@ -31,12 +31,28 @@
     <h2>
         {{ ticket.lottery.name }}
     </h2>
-    <h3>
-        {{ ticket.ticket }}
-    </h3>
     <p>
     {{ ticket.lottery.description }}
     </p>
+    {% if ticket.is_winner %}
+    <h2>
+        You WON!
+    </h2>
+    {% endif %}
+    <h3>
+        Your numbers: {{ ticket.ticket }}
+    </h3>
+    {% if ticket.lottery.winner_chosen %}
+    {% if not ticket.is_winner %}
+    <h3>
+        the winner numbers are: {{ ticket.lottery.winner_ticket }}. Better luck next time!
+    </h3>
+    {% endif %}
+    {% else %}
+    <h3>
+        Winner tickets will be chosen in {{ ticket.lottery.closing_datetime|timeuntil }}
+    </h3>
+    {% endif %}
 </div>
 {% endfor %}
 {% endif %}
