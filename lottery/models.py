@@ -17,6 +17,9 @@ class Lottery(models.Model):
         blank=True,
     )
 
+    def winner_chosen(self):
+        return self.winner_ticket
+
     open_lotteries = OpenLotteryManager()
 
 
@@ -28,6 +31,9 @@ class LotteryTicket(models.Model):
         help_text="Serialization of the ticket/selection of numbers made by the player",
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def is_winner(self):
+        return self.lottery.winner_ticket and self.ticket == self.lottery.winner_ticket
 
     class Meta:
         unique_together = (("lottery", "player"),)
