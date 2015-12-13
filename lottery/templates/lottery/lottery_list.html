@@ -4,12 +4,11 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-6">
 {% if lotteries %}
+    <div class="col-md-6">
     <h1>
         Open Lotteries
     </h1>
-{% endif %}
 {% for lottery in lotteries %}
         <h2>
             {{ lottery.name }}
@@ -20,24 +19,27 @@
         </p>
 {% endfor %}
 </div>
+{% endif %}
 
-<div class="col-md-6">
 {% if player_tickets %}
+<div class="col-md-6">
     <h1>
         My Tickets
     </h1>
-{% endif %}
 {% for ticket in player_tickets %}
-        <h2>
-            {{ ticket.lottery.name }}
-        </h2>
-        <h3>
-            {{ ticket.ticket }}
-        </h3>
-        <p>
-        {{ ticket.lottery.description }}
-        </p>
+<div role="alert" {% if not ticket.lottery.winner_chosen %}class="alert alert-info"{% else %}{% if ticket.is_winner %}class="alert alert-success"{% endif %}{% endif %}>
+    <h2>
+        {{ ticket.lottery.name }}
+    </h2>
+    <h3>
+        {{ ticket.ticket }}
+    </h3>
+    <p>
+    {{ ticket.lottery.description }}
+    </p>
+</div>
 {% endfor %}
+{% endif %}
 </div>
 
 </div>
