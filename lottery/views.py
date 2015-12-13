@@ -13,11 +13,15 @@ from .forms import LotteryTicketForm
 from .utils import serialize_ticket
 
 
-class AvailableLotteries(ListView):
-    context_object_name = "lotteries"
-
-    def get_queryset(self):
-        return Lottery.open_lotteries.all()
+def main_page(request):
+    context = {"player_tickets": [], "lotteries": Lottery.open_lotteries.all()}
+    if request.user.is_authenticated():
+        player_tickets = request.user.lotteryticket_set.select_related().all()
+        context["player_tickets"] = player_tickets
+        context["lotteries"] = Lottery.open_lotteries.exclude(
+            id__in=[ticket.lottery.id for ticket in player_tickets],
+        )
+    return render(request, template_name="lottery/lottery_list.html", context=context)
 
 
 class PlayLottery(FormView):

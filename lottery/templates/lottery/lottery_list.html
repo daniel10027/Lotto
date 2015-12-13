@@ -3,9 +3,14 @@
 {% block title %}Open Lotteries{% endblock %}
 
 {% block content %}
-{% for lottery in lotteries %}
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
+{% if lotteries %}
+    <h1>
+        Open Lotteries
+    </h1>
+{% endif %}
+{% for lottery in lotteries %}
         <h2>
             {{ lottery.name }}
             <a class="btn btn-primary btn-lg" href="{%url 'play_lottery' lottery.id %}" role="button">Play</a>
@@ -13,9 +18,28 @@
         <p>
         {{ lottery.description }}
         </p>
-    </div>
-    </div>
-</div>
 {% endfor %}
+</div>
+
+<div class="col-md-6">
+{% if player_tickets %}
+    <h1>
+        My Tickets
+    </h1>
+{% endif %}
+{% for ticket in player_tickets %}
+        <h2>
+            {{ ticket.lottery.name }}
+        </h2>
+        <h3>
+            {{ ticket.ticket }}
+        </h3>
+        <p>
+        {{ ticket.lottery.description }}
+        </p>
+{% endfor %}
+</div>
+
+</div>
 
 {% endblock content %}
